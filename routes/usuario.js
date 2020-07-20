@@ -4,9 +4,21 @@ const router = express.Router();
 // Importar el modelo usuario para ser utilizado
 import Usuario from '../models/usuario';
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 // Agregar un nuevo usuario
 router.post('/nuevo_usuario', async(req, res) => {
-    const body = req.body;  
+    const body = {
+        nom: req.body.nom,
+        a_pat: req.body.a_pat,
+        a_mat: req.body.a_mat,
+        f_nac: req.body.f_nac,
+        alca: req.body.alca,
+        tel: req.body.tel,
+        correo: req.body.correo
+    }  
+    body.contra = bcrypt.hashSync(req.body.contra, saltRounds);
     try {
         const usuarioDB = await Usuario.create(body);
         res.status(200).json(usuarioDB); 
