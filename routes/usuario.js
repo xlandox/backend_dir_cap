@@ -4,6 +4,8 @@ const router = express.Router();
 // Importar el modelo usuario para ser utilizado
 import Usuario from '../models/usuario';
 
+const {verificarAuth} = require('../middlewares/autenticacion');
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -73,7 +75,7 @@ router.delete('/usuario/:id', async(req, res) => {
 });
 
 // Actualizar un usuario
-router.put('/usuario/:id', async(req, res) => {
+router.put('/usuario/:id', verificarAuth, async(req, res) => {
     const _id = req.params.id;
     const body = req.body;
     if(body.contra){
