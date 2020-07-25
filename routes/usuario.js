@@ -76,6 +76,9 @@ router.delete('/usuario/:id', async(req, res) => {
 router.put('/usuario/:id', async(req, res) => {
     const _id = req.params.id;
     const body = req.body;
+    if(body.contra){
+        body.contra = bcrypt.hashSync(req.body.contra, saltRounds);
+    }
     try {
         const usuarioDB = await Usuario.findByIdAndUpdate(_id, body, {new: true});
         res.json(usuarioDB);

@@ -29,6 +29,7 @@ app.use('/api', require('./routes/usuario'));
 app.use('/api', require('./routes/exponente'));
 app.use('/api', require('./routes/blog'));
 app.use('/api', require('./routes/noticia'));
+app.use('/api', require('./routes/login'));
 
 // Middleware para Vue.js router modo history
 const history = require('connect-history-api-fallback');
