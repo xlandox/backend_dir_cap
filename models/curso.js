@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const cursoSchema = new Schema({
     nom: String,
     des: String,
+    autor_id: String,
     exp_id: {type: Array, default: []},
     f_ini: Date,
     f_fin: Date,
