@@ -3,16 +3,22 @@ const Schema = mongoose.Schema;
 
 const uniqueValidator = require('mongoose-unique-validator');
 
+// Roles permitidos
+const roles = {
+    values: ['Usuario', 'Exponente', 'Administrador'],
+    message: 'Rol no valido'
+}
+
 const usuSchema = new Schema({
-    nom: String,
-    a_pat: String,
-    a_mat: String,
-    f_nac: Date,
-    alca: String,
-    tel: Number,
-    correo: {type: String, unique: true},
-    contra: String,
-    rol: {type: String, default: 'Usuario'},
+    nom: {type: String, required: [true, 'El nombre es obligatorio']},
+    a_pat:{type: String, required: [true, 'El apellido paterno es obligatorio']},
+    a_mat: {type: String, required: [true, 'El apellido materno es obligatorio']},
+    f_nac: {type: Date, required: [true, 'La fecha de nacimiento es obligatoria']},
+    alca: {type: String, required: [true, 'La alcaldia es obligatoria']},
+    tel: {type: Number, required: [true, 'Un numero telefonico es obligatorio']},
+    correo: {type: String, required: [true, 'El correo es obligatorio'], unique: true},
+    contra: {type: String, required: [true, 'La contrasena es obligatoria']},
+    rol: {type: String, default: 'Usuario', enum: roles},
     f_reg: {type: Date, default: Date.now},
     activo: {type: Boolean, default: true}
 });

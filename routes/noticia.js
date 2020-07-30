@@ -4,8 +4,11 @@ const router = express.Router();
 // Importar el modelo noticia para ser utilizado
 import Noticia from '../models/noticia';
 
+// Importamos los middlewares
+const {verificarAuth, verificarAdmin} = require('../middlewares/autenticacion')
+
 // Agregar una nueva noticia
-router.post('/nueva_noticia', async(req, res) => {
+router.post('/nueva_noticia', [verificarAuth, verificarAdmin], async(req, res) => {
     const body = req.body;  
     try {
         const noticiaDB = await Noticia.create(body);
@@ -18,7 +21,7 @@ router.post('/nueva_noticia', async(req, res) => {
 });
 
 // Obtener un documento en especifico utilizando el id
-router.get('/noticia/:id', async(req, res) => {
+router.get('/noticia/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     const _id = req.params.id;
     try {
         const noticiaDB = await Noticia.findOne({_id});
@@ -31,7 +34,7 @@ router.get('/noticia/:id', async(req, res) => {
 });
 
 // Obtener todos los documentos de la coleccion noticias
-router.get('/noticias', async(req, res) => {
+router.get('/noticias', [verificarAuth, verificarAdmin], async(req, res) => {
     try {
         const noticiaDB = await Noticia.find();
         res.json(noticiaDB);
@@ -42,16 +45,12 @@ router.get('/noticias', async(req, res) => {
     }
 });
 
-// Eliminar una noticia
-router.delete('/noticia/:id', async(req, res) => {
+// Actualizar una noticia
+router.put('/noticia/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     const _id = req.params.id;
+    const body = req.body;
     try {
-        const noticiaDB = await Noticia.findByIdAndDelete({_id});
-        if(!noticiaDB){
-            return res.status(400).json({
-                mensaje: 'No se encontro ese id', error
-            })
-        }
+        const noticiaDB = await Noticia.findByIdAndUpdate(_id, body, {new: true});
         res.json(noticiaDB);
     } catch (error) {
         return res.status(400).json({
@@ -60,12 +59,16 @@ router.delete('/noticia/:id', async(req, res) => {
     }
 });
 
-// Actualizar una noticia
-router.put('/noticia/:id', async(req, res) => {
+// Eliminar una noticia
+router.delete('/noticia/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     const _id = req.params.id;
-    const body = req.body;
     try {
-        const noticiaDB = await Noticia.findByIdAndUpdate(_id, body, {new: true});
+        const noticiaDB = await Noticia.findByIdAndDelete({_id});
+        if(!noticiaDB){
+            return res.status(400).json({
+                mensaje: 'No se encontro ese id', error
+            })
+        }
         res.json(noticiaDB);
     } catch (error) {
         return res.status(400).json({

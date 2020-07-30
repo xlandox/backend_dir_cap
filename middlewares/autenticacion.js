@@ -19,9 +19,9 @@ const verificarAdmin = (req, res, next) => {
         next();
     }else{
         return res.status(401).json({
-            mensaje: 'Usuario no es valido'
+            mensaje: 'Usuario no valido'
         })
     }
-} 
+}
 
 module.exports = {verificarAuth, verificarAdmin}

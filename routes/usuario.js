@@ -4,6 +4,7 @@ const router = express.Router();
 // Importar el modelo usuario para ser utilizado
 import Usuario from '../models/usuario';
 
+// Importar los middlewares
 const {verificarAuth, verificarAdmin} = require('../middlewares/autenticacion');
 
 const bcrypt = require('bcrypt');
@@ -32,7 +33,7 @@ router.post('/nuevo_usuario', async(req, res) => {
 });
 
 // Obtener un documento en especifico utilizando el id
-router.get('/usuario/:id', async(req, res) => {
+router.get('/usuario/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     const _id = req.params.id;
     try {
         const usuarioDB = await Usuario.findOne({_id});
@@ -45,27 +46,9 @@ router.get('/usuario/:id', async(req, res) => {
 });
 
 // Obtener todos los documentos de la coleccion usuarios
-router.get('/usuarios', async(req, res) => {
+router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
     try {
         const usuarioDB = await Usuario.find();
-        res.json(usuarioDB);
-    } catch (error) {
-        return res.status(400).json({
-            mensaje: 'Ocurrio un error', error
-        })
-    }
-});
-
-// Eliminar un usuario
-router.delete('/usuario/:id', async(req, res) => {
-    const _id = req.params.id;
-    try {
-        const usuarioDB = await Usuario.findByIdAndDelete({_id});
-        if(!usuarioDB){
-            return res.status(400).json({
-                mensaje: 'No se encontro ese id', error
-            })
-        }
         res.json(usuarioDB);
     } catch (error) {
         return res.status(400).json({
@@ -83,6 +66,24 @@ router.put('/usuario/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     }
     try {
         const usuarioDB = await Usuario.findByIdAndUpdate(_id, body, {new: true});
+        res.json(usuarioDB);
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error', error
+        })
+    }
+});
+
+// Eliminar un usuario
+router.delete('/usuario/:id', [verificarAuth, verificarAdmin], async(req, res) => {
+    const _id = req.params.id;
+    try {
+        const usuarioDB = await Usuario.findByIdAndDelete({_id});
+        if(!usuarioDB){
+            return res.status(400).json({
+                mensaje: 'No se encontro ese id', error
+            })
+        }
         res.json(usuarioDB);
     } catch (error) {
         return res.status(400).json({
