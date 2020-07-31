@@ -1,4 +1,4 @@
-###backend_dir_cap
+### backend_dir_cap
 Plataforma web desarrollada en Vue.js, MongoDB Y con herramientas de Javascript para la difusion e imparticion de cursos impartidos en la direccion de capacitacion (backend).
 
 ### Project setup
