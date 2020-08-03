@@ -23,7 +23,7 @@ const usuSchema = new Schema({
     activo: {type: Boolean, default: true}
 });
 
-usuSchema.plugin(uniqueValidator, { message: 'Error, el {PATH} ya existe.' });
+usuSchema.plugin(uniqueValidator, { message: 'La dirección de correo electrónico que ha ingresado ya está registrada.' });
 
 usuSchema.methods.toJSON = function(){
     const obj = this.toObject();
