@@ -10,9 +10,9 @@ const roles = {
 }
 
 const usuSchema = new Schema({
-    nom: {type: String, required: [true, 'El nombre es obligatorio']},
-    a_pat:{type: String, required: [true, 'El apellido paterno es obligatorio']},
-    a_mat: {type: String, required: [true, 'El apellido materno es obligatorio']},
+    nom: {type: String, uppercase: true, required: [true, 'El nombre es obligatorio']},
+    a_pat:{type: String, uppercase: true, required: [true, 'El apellido paterno es obligatorio']},
+    a_mat: {type: String, uppercase: true, required: [true, 'El apellido materno es obligatorio']},
     f_nac: {type: Date, required: [true, 'La fecha de nacimiento es obligatoria']},
     alca: {type: String, required: [true, 'La alcaldia es obligatoria']},
     tel: {type: Number, required: [true, 'Un numero telefonico es obligatorio']},
