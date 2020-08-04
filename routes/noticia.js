@@ -21,7 +21,7 @@ router.post('/nueva_noticia', [verificarAuth, verificarAdmin], async(req, res) =
 });
 
 // Obtener un documento en especifico utilizando el id
-router.get('/noticia/:id', [verificarAuth, verificarAdmin], async(req, res) => {
+router.get('/noticia/:id', async(req, res) => {
     const _id = req.params.id;
     try {
         const noticiaDB = await Noticia.findOne({_id});
@@ -34,7 +34,7 @@ router.get('/noticia/:id', [verificarAuth, verificarAdmin], async(req, res) => {
 });
 
 // Obtener todos los documentos de la coleccion noticias
-router.get('/noticias', [verificarAuth, verificarAdmin], async(req, res) => {
+router.get('/noticias', async(req, res) => {
     try {
         const noticiaDB = await Noticia.find();
         res.json(noticiaDB);

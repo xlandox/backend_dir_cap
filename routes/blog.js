@@ -22,7 +22,7 @@ router.post('/nuevo_blog', [verificarAuth, verificarAdmin], async(req, res) => {
 });
 
 // Obtener un documento en especifico utilizando el id
-router.get('/blog/:id', [verificarAuth, verificarAdmin], async(req, res) => {
+router.get('/blog/:id', async(req, res) => {
     const _id = req.params.id;
     try {
         const blogDB = await Blog.findOne({_id});
@@ -35,7 +35,7 @@ router.get('/blog/:id', [verificarAuth, verificarAdmin], async(req, res) => {
 });
 
 // Obtener todos los documentos de la coleccion blogs
-router.get('/blogs', [verificarAuth, verificarAdmin], async(req, res) => {
+router.get('/blogs', async(req, res) => {
     try {
         const blogDB = await Blog.find();
         res.json(blogDB);
