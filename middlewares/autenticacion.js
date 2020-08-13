@@ -5,7 +5,7 @@ const verificarAuth = (req, res, next) => {
     jwt.verify(token, 'secret', (err, decoded) => {
         if(err){
             return res.status(401).json({
-                mensaje: 'Usuario no valido'
+                mensaje: 'No se ha iniciado sesión'
             })
         }
         req.usuario = decoded.data;
