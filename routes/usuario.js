@@ -19,7 +19,8 @@ router.post('/nuevo_usuario', async(req, res) => {
         f_nac: req.body.f_nac,
         alca: req.body.alca,
         tel: req.body.tel,
-        correo: req.body.correo
+        correo: req.body.correo,
+        rol: req.body.rol
     }  
     body.contra = bcrypt.hashSync(req.body.contra, saltRounds);
     try {
