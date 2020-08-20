@@ -9,7 +9,8 @@ const {verificarAuth, verificarAdmin} = require('../middlewares/autenticacion')
 
 // Agregar una nueva noticia
 router.post('/nueva_noticia', [verificarAuth, verificarAdmin], async(req, res) => {
-    const body = req.body;  
+    const body = req.body;
+    body.autor_id = req.usuario._id;
     try {
         const noticiaDB = await Noticia.create(body);
         res.status(200).json(noticiaDB); 
