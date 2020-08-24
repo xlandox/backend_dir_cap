@@ -46,11 +46,27 @@ router.get('/usuario/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     }
 });
 
-// Obtener todos los documentos de la coleccion usuarios
+/*// Obtener todos los documentos de la coleccion usuarios
 router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
     try {
         const usuarioDB = await Usuario.find();
         res.json(usuarioDB);
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error', error
+        })
+    }
+});*/
+
+// Obtener todos los documentos de la coleccion usuarios con paginacion
+router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
+    const limite = Number(req.query.limite) || 10;
+    const skip = Number(req.query.skip) || 0;
+    try {
+        const usuarioDB = await Usuario.find().limit(limite).skip(skip);
+        // contar documentos
+        const totalUsuarios = await Usuario.find().countDocuments();
+        res.json({usuarioDB, totalUsuarios});
     } catch (error) {
         return res.status(400).json({
             mensaje: 'Ocurrio un error', error
