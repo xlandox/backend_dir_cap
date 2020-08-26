@@ -34,11 +34,27 @@ router.get('/noticia/:id', async(req, res) => {
     }
 });
 
-// Obtener todos los documentos de la coleccion noticias
+/*// Obtener todos los documentos de la coleccion noticias
 router.get('/noticias', async(req, res) => {
     try {
         const noticiaDB = await Noticia.find();
         res.json(noticiaDB);
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error', error
+        })
+    }
+});*/
+
+// Obtener todos los documentos de la coleccion carrusel con paginacion
+router.get('/noticias', async(req, res) => {
+    const limite = Number(req.query.limite) || 5;
+    const skip = Number(req.query.skip) || 0;
+    try {
+        const noticiaDB = await Noticia.find().limit(limite).skip(skip);
+        // contar documentos
+        const totalNoticias = await Noticia.find().countDocuments();
+        res.json({noticiaDB, totalNoticias});
     } catch (error) {
         return res.status(400).json({
             mensaje: 'Ocurrio un error', error
