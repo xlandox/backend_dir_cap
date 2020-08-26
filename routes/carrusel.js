@@ -34,11 +34,27 @@ router.get('/imagen/:id', async(req, res) => {
     }
 });
 
-// Obtener todos los documentos de la coleccion carrusel
+/*// Obtener todos los documentos de la coleccion carrusel
 router.get('/imagenes', async(req, res) => {
     try {
         const carruselDB = await Carrusel.find();
         res.json(carruselDB);
+    } catch (error) {
+        return res.status(400).json({
+            mensaje: 'Ocurrio un error', error
+        })
+    }
+});*/
+
+// Obtener todos los documentos de la coleccion carrusel con paginacion
+router.get('/imagenes', async(req, res) => {
+    const limite = Number(req.query.limite) || 5;
+    const skip = Number(req.query.skip) || 0;
+    try {
+        const carruselDB = await Carrusel.find().limit(limite).skip(skip);
+        // contar documentos
+        const totalImagenes = await Carrusel.find().countDocuments();
+        res.json({carruselDB, totalImagenes});
     } catch (error) {
         return res.status(400).json({
             mensaje: 'Ocurrio un error', error
