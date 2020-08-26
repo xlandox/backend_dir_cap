@@ -60,7 +60,7 @@ router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
 
 // Obtener todos los documentos de la coleccion usuarios con paginacion
 router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
-    const limite = Number(req.query.limite) || 10;
+    const limite = Number(req.query.limite) || 5;
     const skip = Number(req.query.skip) || 0;
     try {
         const usuarioDB = await Usuario.find().limit(limite).skip(skip);
