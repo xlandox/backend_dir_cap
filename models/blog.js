@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const blogSchema = new Schema({
     f_crea: {type: Date, default: Date.now},
     titulo: {type: String, required: [true, 'Titulo del blog obligatorio']},
+    resumen: {type: String, required: [true, 'Resumen del blog obligatorio']},
     autor_id: String,
     articulo: {type: String, required: [true, 'Articulo del blog obligatorio']},
     foto: {type: String, required: [true, 'Foto del blog obligatorio']},

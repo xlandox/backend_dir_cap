@@ -5,7 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 // Roles permitidos
 const roles = {
-    values: ['Usuario', 'Exponente', 'Administrador'],
+    values: ['Usuario', 'Administrador'],
     message: 'Rol no valido'
 }
 

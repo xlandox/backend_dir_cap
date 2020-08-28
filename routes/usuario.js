@@ -46,18 +46,6 @@ router.get('/usuario/:id', [verificarAuth, verificarAdmin], async(req, res) => {
     }
 });
 
-/*// Obtener todos los documentos de la coleccion usuarios
-router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
-    try {
-        const usuarioDB = await Usuario.find();
-        res.json(usuarioDB);
-    } catch (error) {
-        return res.status(400).json({
-            mensaje: 'Ocurrio un error', error
-        })
-    }
-});*/
-
 // Obtener todos los documentos de la coleccion usuarios con paginacion
 router.get('/usuarios', [verificarAuth, verificarAdmin], async(req, res) => {
     const limite = Number(req.query.limite) || 5;
