@@ -34,17 +34,19 @@ router.get('/blog/:id', async(req, res) => {
     }
 });
 
-/*// Obtener todos los documentos de la coleccion blogs
-router.get('/blogs', async(req, res) => {
+// Obtener todos los documentos de la coleccion blogs
+router.get('/blogss', async(req, res) => {
     try {
         const blogDB = await Blog.find();
-        res.json(blogDB);
+        // contar documentos
+        const totalBlogs = await Blog.find().countDocuments();
+        res.json({blogDB, totalBlogs});
     } catch (error) {
         return res.status(400).json({
             mensaje: 'Ocurrio un error', error
         })
     }
-});*/
+});
 
 // Obtener todos los documentos de la coleccion blogs con paginacion
 router.get('/blogs', async(req, res) => {
