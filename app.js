@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/api', require('./routes/usuario'));
 app.use('/api', require('./routes/carrusel'));
+app.use('/api', require('./routes/curso'));
 app.use('/api', require('./routes/blog'));
 app.use('/api', require('./routes/noticia'));
 app.use('/api', require('./routes/login'));
