@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const cursoSchema = new Schema({
     nom: {type: String, required: [true, 'Nombre del curso obligatorio']},
     foto: {type: String, required: [true, 'Foto de la noticia obligatorio']},
+    resumen: {type: String, require: [true, 'Resumen del curso obligatorio']},
     des: {type: String, required: [true, 'Descripcion del curso obligatoria']},
     autor_id: String,
     f_ini: {type: Date, required: [true, 'Fecha inicial del curso obligatoria']},
