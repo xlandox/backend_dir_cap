@@ -8,7 +8,8 @@ const app = express();
 // Conexión base de datos
 const mongoose = require('mongoose');
 
-const uri = 'mongodb://localhost:27017/db_dir_cap';
+//const uri = 'mongodb://localhost:27017/db_dir_cap';
+const uri = 'mongodb+srv://admin_dir_cap:XnBOrWX0pjKNfTVd@db-dir-cap.h3zhh.mongodb.net/db_dir_cap?retryWrites=true&w=majority';
 const options = {
     useNewUrlParser: true, 
     useCreateIndex: true,
